@@ -24,7 +24,7 @@ Nand2Tetris website: http://nand2tetris.org/
 
 #### Part 1: Low Level architecture  
 
-### Hack Computer specifications   
+### Hack Computer Architecture   
 <hr>  
 
 ![hack computer image 1](https://github.com/vaithak/NandToTetris/blob/master/images/HackComputer/hack_computer_1.jpg)  
@@ -42,7 +42,7 @@ Nand2Tetris website: http://nand2tetris.org/
 ![hack computer image 13](https://github.com/vaithak/NandToTetris/blob/master/images/HackComputer/hack_computer_13.jpg)  
 <hr>  
 
-### Hack CPU specification  
+### Hack CPU micro-architecture 
 <hr>  
 
 ![hack cpu image 1](https://github.com/vaithak/NandToTetris/blob/master/images/HackCPU/hack_cpu_1.png)  

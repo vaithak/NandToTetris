@@ -20,6 +20,9 @@ Nand2Tetris website: http://nand2tetris.org/
 
 <hr>  
 
+**Note:** In this computer we use the Harvard architecture instead of the Von Neumann architecture which is the major one used in today's systems. -> [https://stackoverflow.com/questions/26826248/von-neumann-vs-harvard-architecture](https://stackoverflow.com/questions/26826248/von-neumann-vs-harvard-architecture)  
+<hr>  
+
 ## Description and specifications  
 
 #### Part 1: Low Level architecture  

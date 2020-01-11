@@ -1,0 +1,97 @@
+// Author: Vaibhav Thakkar
+// Class description: This class is used for generating random points on screen
+
+class RandomPoints{
+    // State for linear congruential generator
+    field int stateX, stateY;
+
+    // A 1d array for containing x and y coordinates for generated points
+    // , the (x,y) tuple will be stored as consecutive elements in array.
+    field Array pointsList;
+
+    field int numPoints;
+    field int x_offset;
+    field int y_offset;
+
+    constructor RandomPoints new(int seed, int size){
+        let stateX = seed;
+        let stateY = seed+11;
+        let numPoints = size;
+        let pointsList = Array.new(2*size);
+        return this;
+    }
+
+    // Disposes current object
+    method void dispose(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // Accessor function for pointsList
+    method Array getList(){
+        return pointsList;
+    }
+
+    // Return size of list
+    method int getSizeOfList(){
+        return numPoints;
+    }
+
+    // Return x_offset for lcg
+    method int getXOffset(){
+        return x_offset;
+    }
+
+    // Return y_offset for lcg
+    method int getYOffset(){
+        return y_offset;
+    }
+
+    // Function for drawing points on screen
+    method void draw(){
+        var int i, cord;
+        do Screen.setColor(true);
+        let i = 0;
+        while(i < numPoints){
+            let cord = 2*i;
+            do Screen.drawCircle(pointsList[cord], pointsList[cord+1], 2);
+            let i = i+1;
+        }
+        return;
+    }
+
+    // Function to generate random points
+    method void gen(){
+        // harcoded values for linear congruential generator
+        var int M, a, c, rows, cols;
+        var int i, cord;
+        var int x, y, temp;
+        let a = 5;
+        let c = 7;
+        let rows = 137;
+        let cols = 239;
+        let x_offset = 50;
+        let y_offset = 100;
+        let i = 0;
+
+        while (i<numPoints){
+            let cord = 2*i;
+
+            // stateX = (a*stateX + c)%cols
+            let stateX = ((a*stateX) + c);
+            let temp = (stateX/cols);
+            let stateX = (stateX - (cols*temp));
+            let pointsList[cord] = stateX + y_offset;
+
+            // stateY = (a*stateY + c+4)%rows
+            let stateY = ((a*stateY) + (c+4));
+            let temp = (stateY/rows);
+            let stateY = (stateY - (rows*temp));
+            let pointsList[cord+1] = stateY + x_offset;
+
+            let i = i+1;
+        }
+
+        return;
+    }
+}

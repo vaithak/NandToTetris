@@ -1,0 +1,33 @@
+// Author: Vaibhav Thakkar
+// Class description: This class is used for implementing helper functions 
+//                    which don't work on any particular object
+
+class Helper {
+    function boolean isCrossProductPostitive(int x1, int y1, int x2, int y2, int x3, int y3){
+        
+        // checking if sign of 2d cross product (P1P2 x P1P3) is greater than 0
+        var boolean result;
+        var int a1, b1, a2, b2;
+
+        let result = false;
+        let a1 = x2 - x1;
+        let b1 = y2 - y1;
+        let a2 = x3 - x1;
+        let b2 = y3 - y1;
+
+        if (((a1*b2) - (a2*b1)) > 0){
+            let result = true;
+        }
+
+        return result;
+    }
+
+    function boolean checkEqualPoints(int x1, int y1, int x2, int y2){
+        if((x1 = x2) & (y1 = y2)){
+            return true;
+        }
+
+        return false;
+    }
+
+}

@@ -1,0 +1,55 @@
+// Author: Vaibhav Thakkar
+// Name  : Convex Hull Gift Wrapping Algorithm 
+
+
+class Main {
+   function void main(){
+      var int seed;
+      var RandomPoints points;
+      var boolean exit;
+      var Array pointsList;
+      var int numPoints;
+      do Screen.drawLine(0,0,510,0);
+      do Screen.drawLine(0,0,0,250);
+      do Output.printString("Finding Convex hull of points using Gift Wrapping Algorithm");
+      do Output.moveCursor(21, 0);
+      do Output.printString("Press any key to start");
+      do Output.println();
+      do Output.printString("(your key press will be used as random seed)");
+      while(seed = 0){
+         let seed = Keyboard.keyPressed();
+      }
+
+      let exit = false;
+      let numPoints = 80;
+      while(~exit) {
+         // using key pressed as seed, generate random points
+         do Screen.clearScreen();
+         do Output.moveCursor(0, 0);
+         do Output.printString("Finding Convex hull of points using Gift Wrapping Algorithm");
+         let points = RandomPoints.new(seed, numPoints);
+         do points.gen();
+         do points.draw();
+         let pointsList = points.getList();
+
+         // sending points list to convex hull generator
+         do ConvexHullSolver.jarvisMarch(points);
+
+         // disposing objects
+         do points.dispose();
+
+         let seed = 0;
+         do Sys.wait(400);
+         do Output.moveCursor(21, 0);
+         do Output.printString("Press any key to Restart");
+         do Output.println();
+         do Output.printString("(your key press will be used as random seed)");
+         do Output.println();
+         while(seed = 0){
+            let seed = Keyboard.keyPressed();
+         }
+      }
+
+      return;
+   }
+}

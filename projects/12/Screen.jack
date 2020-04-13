@@ -43,7 +43,7 @@ class Screen {
     function void drawPixel(int x, int y) {
         var int address, mask;
         let address = (y * 32) + (x / 16);
-        let mask = Math.two_to_the(x & 15);   // x modulo 2^n = x & (2^n - 1)
+        let mask = Math.powerOf2(x & 15);   // x modulo 2^n = x & (2^n - 1)
 
         if(color){
             let screen[address] = screen[address] | mask;

@@ -1,0 +1,81 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Memory.jack
+
+/**
+ * Memory operations library.
+ */ 
+class Memory {
+    static Array ram;
+    static int free_list;    // actually will be used as a pointer
+    static int heap_start;
+    static int heap_bottom;
+    static int LENGTH;
+    static int NEXT;
+    static int ALLOC_LENGTH;
+
+    /** Initializes memory parameters. */
+    function void init() {
+        let heap_start = 2048;
+        let heap_bottom = 16384;
+
+        let ram = 0;  // ram base, now we can access any memory in the ram
+        let free_list = heap_start; //heap base
+        let LENGTH = 0;
+        let NEXT = 1;
+        let ALLOC_LENGTH = -1;
+        let free_list[NEXT] = 0;
+        let free_list[LENGTH] = heap_bottom - heap_start + 1;
+
+        return;
+    }
+
+    /** Returns the value of the main memory at the given address. */
+    function int peek(int address) {
+        return ram[address];
+    }
+
+    /** Sets the value of the main memory at this address
+     *  to the given value. */
+    function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
+    }
+    
+
+    /** finds and allocates from the heap a memory block of the 
+     *  specified size and returns a reference to its base address. */
+    function int alloc(int size) {
+        var int current_block, result;
+        let result = 0;
+
+        // Finding first fit ------------- START
+        let current_block = free_list;
+        while(~(current_block = 0) & ~(current_block[LENGTH] > (size+2))) {
+            let current_block = current_block[NEXT];
+        }
+
+        if(current_block = 0){
+            return 0;
+        }
+        // Finding first fit ------------- END
+
+        let result = current_block + 2 + (current_block[LENGTH] - size);
+        let result[ALLOC_LENGTH] = size + 1;
+        let current_block[LENGTH] = current_block[LENGTH] - (size + 1);
+        return result;
+    }
+
+    /** De-allocates the given object and frees its space. */
+    // Defragmenter not implemented
+    function void deAlloc(int object) {
+        let object = object - ALLOC_LENGTH;
+
+        // attach object in front
+        let object[NEXT] = free_list;
+        // let object[LENGTH] ;  // no need to assign would be already there
+        let free_list = object;
+        return;
+    }
+}
